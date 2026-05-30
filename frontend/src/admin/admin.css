@@ -331,16 +331,17 @@
   50% { opacity: .4; transform: scale(1.4); }
 }
 
-/* Card de Atividade em tempo real estica para acompanhar a altura do Funil (mesma linha do grid) */
+/* Card de Atividade em tempo real: mostra ~9 eventos visíveis com scroll interno */
 .da-card[data-testid="realtime-card"] {
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  align-self: start;
 }
 .da-card[data-testid="realtime-card"] .da-events {
-  flex: 1 1 0;
-  max-height: none;
+  flex: 0 0 auto;
+  max-height: 620px;
   min-height: 0;
+  overflow-y: auto;
 }
 
 .da-events { display: flex; flex-direction: column; gap: 10px; max-height: 380px; overflow: auto; padding-right: 4px; }
