@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "@/App.css";
 import "@/admin/admin.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import { AdminAuthProvider } from "@/admin/AuthContext";
 import AdminLogin from "@/admin/AdminLogin";
@@ -21,10 +21,22 @@ function RedirectToStatic() {
   return null;
 }
 
+// Define o <title> do navegador conforme a rota atual.
+// Em /donaspainel/* → "Painel Donas"; caso contrário → "Concurso Buriticupu-MA - FSADU".
+function DocumentTitle() {
+  const location = useLocation();
+  useEffect(() => {
+    const isAdmin = location.pathname.startsWith("/donaspainel");
+    document.title = isAdmin ? "Painel Donas" : "Concurso Buriticupu-MA - FSADU";
+  }, [location.pathname]);
+  return null;
+}
+
 function App() {
   return (
     <BrowserRouter>
       <AdminAuthProvider>
+        <DocumentTitle />
         <Routes>
           {/* Painel administrativo */}
           <Route path="/donaspainel/login" element={<AdminLogin />} />
