@@ -253,8 +253,43 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     loadAll();
-    const iv = setInterval(loadAll, 60000); // refresh AO VIVO a cada 60s
+    const iv = setInterval(loadAll, 60000); // refresh completo a cada 60s
     return () => clearInterval(iv);
+  }, []);
+
+  // ATIVIDADE EM TEMPO REAL — polling rápido (5s) só para o feed de eventos
+  useEffect(() => {
+    let alive = true;
+    let timer = null;
+
+    const tick = async () => {
+      try {
+        const e = await dashboardApi.realtime();
+        if (alive) setEvents(e);
+      } catch (_) {
+        /* silencioso: tenta de novo no próximo tick */
+      } finally {
+        if (alive) timer = setTimeout(tick, 5000);
+      }
+    };
+
+    // primeira chamada após 5s (loadAll já busca eventos no mount)
+    timer = setTimeout(tick, 5000);
+
+    // Re-sincroniza quando a aba volta a ficar visível
+    const onVis = () => {
+      if (document.visibilityState === "visible" && alive) {
+        clearTimeout(timer);
+        tick();
+      }
+    };
+    document.addEventListener("visibilitychange", onVis);
+
+    return () => {
+      alive = false;
+      if (timer) clearTimeout(timer);
+      document.removeEventListener("visibilitychange", onVis);
+    };
   }, []);
 
   const onReset = async () => {
