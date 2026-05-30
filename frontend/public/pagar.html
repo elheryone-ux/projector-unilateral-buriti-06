@@ -29,9 +29,12 @@
 
   /* Cabeçalho compacto: brasão pequeno + textos pequenos (vence font-size:130% inline) */
   header section, header > section { padding: 0 !important; }
+  /* Afasta o brasão e os textos da borda esquerda no mobile */
+  header section > div.row { margin-left: 0 !important; margin-right: 0 !important; }
+  header section > div.row > div.container { padding-left: 14px !important; padding-right: 12px !important; }
   table.tabhdr { width: 100% !important; table-layout: fixed !important; font-size: 11px !important; }
   table.tabhdr > tbody > tr > td { font-size: 11px !important; padding: 4px 2px !important; vertical-align: middle !important; }
-  table.tabhdr > tbody > tr > td.logo { width: 56px !important; padding: 4px !important; }
+  table.tabhdr > tbody > tr > td.logo { width: 56px !important; padding: 4px 4px 4px 0 !important; }
   table.tabhdr > tbody > tr > td.logo img,
   table.tabhdr > tbody > tr > td.logo img.logo-cliente {
     height: 44px !important;
@@ -54,7 +57,7 @@
   /* Faixa azul fina com logo à esquerda */
   .navbar { margin-bottom: 10px !important; min-height: 0 !important; border-radius: 0 !important; }
   .navbar-header.faixa-azul {
-    padding: 4px 10px !important;
+    padding: 4px 10px 4px 14px !important;
     min-height: 34px !important;
     display: flex !important;
     align-items: center !important;
