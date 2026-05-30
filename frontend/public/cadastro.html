@@ -38,35 +38,49 @@
   }
   html, body { overflow-x: hidden; max-width: 100vw; }
   body { font-size: 14px; -webkit-text-size-adjust: 100%; }
-  /* Cabeçalho prefeitura: força o texto a caber e o brasão a aparecer */
+  /* Cabeçalho prefeitura: brasão à esquerda + textos compactos à direita (alinhados à esquerda) */
   header,
-  header > table,
-  header > div { width: 100% !important; max-width: 100% !important; padding: 8px 10px !important; box-sizing: border-box !important; }
-  header table, header tbody, header tr, header td {
+  header > section,
+  header section > div.row,
+  header section > div.row > div.container,
+  header > div { width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
+  header section > div.row > div.container { padding: 6px 10px !important; }
+  /* Tabela do cabeçalho permanece como tabela (lado a lado) */
+  header table.tabhdr { display: table !important; width: 100% !important; table-layout: fixed !important; }
+  header table.tabhdr > tbody { display: table-row-group !important; }
+  header table.tabhdr > tbody > tr { display: table-row !important; }
+  header table.tabhdr > tbody > tr > td { display: table-cell !important; vertical-align: middle !important; padding: 0 !important; text-align: left !important; }
+  /* Coluna do brasão: largura fixa, à esquerda */
+  header table.tabhdr > tbody > tr > td.logo { width: 78px !important; padding-right: 8px !important; }
+  /* Coluna dos textos: ocupa o restante, alinhada à esquerda, fonte normal */
+  header table.tabhdr > tbody > tr > td:not(.logo) { font-size: 12px !important; white-space: normal !important; line-height: 1.25 !important; }
+  /* Tabela interna (3 linhas de texto): vira blocos empilhados alinhados à esquerda */
+  header table.tabhdr table { display: block !important; width: 100% !important; }
+  header table.tabhdr table tbody,
+  header table.tabhdr table tr,
+  header table.tabhdr table td { display: block !important; width: 100% !important; text-align: left !important; padding: 0 !important; font-size: 12px !important; line-height: 1.25 !important; }
+  /* Brasão: à esquerda, tamanho compacto */
+  header img.logo-cliente,
+  header td.logo img {
     display: block !important;
-    width: 100% !important;
-    text-align: center !important;
-    padding: 0 !important;
-  }
-  header img,
-  header td img {
-    display: block !important;
-    margin: 0 auto 10px !important;
-    max-width: 92px !important;
+    margin: 0 !important;
+    max-width: 70px !important;
     height: auto !important;
     float: none !important;
+    border: 1px solid #eee !important;
+    object-fit: contain !important;
   }
   header h1, header h2, header h3, header h4,
-  header td, header span, header b, header strong, header div {
-    font-size: 13px !important;
-    line-height: 1.3 !important;
+  header span, header b, header strong {
+    font-size: 12px !important;
+    line-height: 1.25 !important;
     white-space: normal !important;
     word-break: break-word !important;
     overflow-wrap: break-word !important;
     letter-spacing: 0 !important;
   }
-  header h1 { font-size: 14px !important; font-weight: 700 !important; margin: 0 0 2px !important; }
-  header h2 { font-size: 13px !important; margin: 0 0 2px !important; }
+  header h1 { font-size: 13px !important; font-weight: 700 !important; margin: 0 0 2px !important; }
+  header h2 { font-size: 12px !important; margin: 0 0 2px !important; }
   header h3, header h4 { font-size: 12px !important; margin: 0 !important; }
   .container, .container-fluid, .row {
     width: 100% !important; max-width: 100% !important;
@@ -125,9 +139,12 @@
 }
 @media (max-width: 480px) {
   body { font-size: 13.5px; }
-  header img, header td img { max-width: 78px !important; }
-  header h1 { font-size: 13px !important; }
-  header h2, header h3 { font-size: 12px !important; }
+  header img.logo-cliente, header td.logo img { max-width: 62px !important; }
+  header table.tabhdr > tbody > tr > td.logo { width: 70px !important; }
+  header h1 { font-size: 12px !important; }
+  header h2, header h3 { font-size: 11.5px !important; }
+  header table.tabhdr > tbody > tr > td:not(.logo),
+  header table.tabhdr table td { font-size: 11.5px !important; }
   h1:not(header h1) { font-size: 18px !important; }
   h2:not(header h2) { font-size: 16px !important; }
   h3:not(header h3) { font-size: 15px !important; }
