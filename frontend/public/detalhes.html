@@ -26,14 +26,18 @@
 @media (max-width: 768px) {
   .mostra_usuario { display: none !important; }
   header section { padding: 0 !important; }
+  /* Afasta o brasão e os textos da borda esquerda no mobile */
+  header section > div.row { margin-left: 0 !important; margin-right: 0 !important; }
+  header section > div.row > div.container { padding-left: 14px !important; padding-right: 12px !important; }
   .container { padding-left: 12px !important; padding-right: 12px !important; }
   .container.principal { padding: 12px !important; height: auto !important; min-height: 280px !important; margin-top: 0 !important; }
-  .tabhdr td.logo img.logo-cliente { height: 44px !important; margin-right: 8px !important; }
+  .tabhdr td.logo img.logo-cliente { height: 44px !important; margin-right: 8px !important; margin-left: 0 !important; }
+  .tabhdr td.logo { padding-left: 0 !important; }
   .tabhdr td { font-size: 11px !important; }
   .tabhdr td > table td { padding: 1px 0 !important; line-height: 1.25 !important; font-size: 11px !important; white-space: normal !important; }
   .navbar { margin-bottom: 10px !important; min-height: 0 !important; border-radius: 0 !important; }
   .navbar-header.faixa-azul {
-    padding: 4px 10px !important; min-height: 34px !important;
+    padding: 4px 10px 4px 14px !important; min-height: 34px !important;
     display: flex !important; align-items: center !important; justify-content: flex-start !important;
   }
   .navbar-header.faixa-azul a { display: inline-flex !important; align-items: center !important; }
