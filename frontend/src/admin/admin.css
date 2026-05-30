@@ -420,54 +420,208 @@
 /* --------- Login --------- */
 .da-login-wrap {
   min-height: 100vh;
-  background:
-    radial-gradient(900px 600px at 0% 0%, rgba(124, 58, 237, .25), transparent 60%),
-    radial-gradient(700px 500px at 100% 100%, rgba(56, 189, 248, .18), transparent 60%),
-    linear-gradient(160deg, #150932 0%, #25104f 100%);
-  display: grid; place-items: center;
-  padding: 24px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  background: #0a0518;
+  color: #fff;
   font-family: "Plus Jakarta Sans", "Inter", -apple-system, sans-serif;
-  position: fixed; inset: 0; z-index: 99990; overflow: auto;
+  position: fixed; inset: 0; z-index: 99990; overflow: hidden;
+}
+
+/* ===== Coluna esquerda — hero com imagem do Donatelo ===== */
+.da-login-hero {
+  position: relative;
+  overflow: hidden;
+  background: #07040f;
+}
+.da-login-hero__img {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  filter: saturate(0.95) contrast(1.02);
+}
+.da-login-hero__overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 80% at 30% 35%, rgba(124,58,237,0.08), transparent 60%),
+    linear-gradient(90deg, rgba(7,4,15,0) 35%, rgba(10,5,24,0.85) 78%, rgba(10,5,24,1) 100%),
+    linear-gradient(180deg, rgba(7,4,15,0.35) 0%, rgba(7,4,15,0) 30%, rgba(7,4,15,0.55) 100%);
+  pointer-events: none;
+}
+.da-login-hero__bottom {
+  position: absolute; left: 36px; right: 36px; bottom: 36px;
+  display: flex; flex-direction: column; gap: 14px;
+  z-index: 2;
+}
+.da-login-pill {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(124, 58, 237, 0.18);
+  border: 1px solid rgba(167, 139, 250, 0.45);
+  color: #e9d5ff;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.22em;
+  padding: 8px 14px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+.da-login-pill__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #a855f7;
+  box-shadow: 0 0 12px rgba(168,85,247,0.95);
+  animation: da-pulse 2.2s ease-in-out infinite;
+}
+@keyframes da-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.8); }
+}
+.da-login-quote {
+  margin: 0;
+  font-size: 16px;
+  font-style: italic;
+  color: #e4dcff;
+  line-height: 1.55;
+  max-width: 520px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+.da-login-quote em { font-style: italic; }
+.da-login-quote__hl {
+  color: #c4b5fd;
+  text-decoration: underline;
+  text-decoration-color: rgba(168,85,247,0.7);
+  text-underline-offset: 3px;
+}
+
+/* ===== Coluna direita — form ===== */
+.da-login-side {
+  display: grid; place-items: center;
+  padding: 32px 28px;
+  background:
+    radial-gradient(900px 600px at 100% 0%, rgba(124, 58, 237, .14), transparent 60%),
+    radial-gradient(700px 500px at 100% 100%, rgba(56, 189, 248, .08), transparent 60%),
+    linear-gradient(160deg, #0e0726 0%, #1a0d3a 100%);
+  overflow: auto;
 }
 .da-login-card {
   width: 100%; max-width: 420px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.08);
   backdrop-filter: blur(18px);
-  border-radius: 22px;
-  padding: 30px 28px;
+  border-radius: 20px;
+  padding: 36px 32px;
   color: #fff;
-  display: flex; flex-direction: column; gap: 12px;
-  box-shadow: 0 30px 80px -30px rgba(0,0,0,.6);
+  display: flex; flex-direction: column; gap: 10px;
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,.7);
 }
-.da-login-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-.da-login-title { font-size: 22px; font-weight: 800; line-height: 1.1; }
-.da-login-sub { font-size: 11px; letter-spacing: .16em; color: #c7bcf2; margin-top: 2px; }
-.da-label { font-size: 12.5px; color: #c7bcf2; font-weight: 600; margin-top: 6px; }
+.da-login-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.da-login-card .da-avatar {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  border-radius: 12px;
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 20px; color: #fff;
+  box-shadow: 0 8px 24px -6px rgba(124,58,237,0.7);
+}
+.da-login-brand { font-size: 17px; font-weight: 800; line-height: 1.1; }
+.da-login-sub {
+  font-size: 9.5px; letter-spacing: 0.2em;
+  color: rgba(199, 188, 242, 0.85); margin-top: 2px;
+}
+.da-login-head { margin-bottom: 6px; }
+.da-login-title {
+  font-size: 30px; font-weight: 800;
+  line-height: 1.15; margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.da-login-desc {
+  font-size: 13.5px; color: #b8aee0;
+  margin: 0;
+}
+.da-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: #c4b5fd;
+  margin-top: 14px;
+  text-transform: uppercase;
+}
+.da-input-wrap { position: relative; }
 .da-input {
-  background: rgba(255,255,255,.06);
+  width: 100%;
+  background: #ffffff;
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 10px;
-  padding: 12px 14px;
-  color: #fff; font-size: 14.5px;
-  outline: none; transition: border-color .15s, box-shadow .15s, background .15s;
+  padding: 13px 14px;
+  color: #1a0d3a; font-size: 14.5px; font-weight: 600;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  box-sizing: border-box;
 }
-.da-input::placeholder { color: rgba(255,255,255,.4); }
-.da-input:focus { border-color: #a855f7; background: rgba(255,255,255,.1); box-shadow: 0 0 0 4px rgba(168,85,247,.18); }
-.da-login-err { font-size: 13px; color: #fca5a5; background: rgba(220,38,38,.15); border: 1px solid rgba(220,38,38,.3); padding: 8px 12px; border-radius: 8px; }
+.da-input::placeholder { color: rgba(26,13,58,.35); }
+.da-input:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 4px rgba(168,85,247,.22);
+}
+.da-input-wrap .da-input { padding-right: 44px; }
+.da-input-eye {
+  position: absolute; right: 10px; top: 50%;
+  transform: translateY(-50%);
+  background: transparent; border: 0; cursor: pointer;
+  color: #6d28d9;
+  width: 30px; height: 30px;
+  display: grid; place-items: center;
+  border-radius: 6px;
+  transition: background .15s, color .15s;
+}
+.da-input-eye:hover { background: rgba(168,85,247,0.1); color: #4c1d95; }
+.da-login-err {
+  font-size: 13px; color: #fca5a5;
+  background: rgba(220,38,38,.15);
+  border: 1px solid rgba(220,38,38,.3);
+  padding: 9px 12px; border-radius: 8px;
+  margin-top: 6px;
+}
 .da-login-btn {
-  margin-top: 10px;
-  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  margin-top: 22px;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
   color: #fff; border: none; cursor: pointer;
-  padding: 13px; border-radius: 10px;
-  font-weight: 700; font-size: 14.5px;
-  letter-spacing: .02em;
+  padding: 14px 18px; border-radius: 12px;
+  font-weight: 700; font-size: 15px;
+  letter-spacing: .01em;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   transition: transform .12s, box-shadow .15s, filter .15s;
-  box-shadow: 0 10px 30px -10px rgba(124, 58, 237, .8);
+  box-shadow: 0 10px 30px -10px rgba(124, 58, 237, .85);
 }
-.da-login-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
-.da-login-btn:disabled { opacity: .6; cursor: not-allowed; }
-.da-login-foot { text-align: center; font-size: 11.5px; color: #9b8fcf; margin-top: 4px; letter-spacing: .08em; }
+.da-login-btn:hover { transform: translateY(-1px); filter: brightness(1.1); box-shadow: 0 14px 36px -10px rgba(124, 58, 237, 1); }
+.da-login-btn:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+.da-login-btn__arrow {
+  font-size: 18px;
+  transition: transform .2s;
+}
+.da-login-btn:hover .da-login-btn__arrow { transform: translateX(3px); }
+.da-login-foot {
+  margin-top: 16px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: #9b8fcf;
+  letter-spacing: 0.01em;
+}
+.da-login-foot svg { flex: 0 0 13px; opacity: 0.8; }
+
+/* ===== Responsivo ===== */
+@media (max-width: 980px) {
+  .da-login-wrap { grid-template-columns: 1fr; grid-template-rows: 38vh 1fr; }
+  .da-login-hero__bottom { left: 20px; right: 20px; bottom: 20px; gap: 10px; }
+  .da-login-quote { font-size: 13.5px; line-height: 1.4; }
+  .da-login-pill { font-size: 10px; padding: 6px 12px; }
+  .da-login-side { padding: 24px 18px; align-items: start; padding-top: 32px; }
+  .da-login-card { padding: 26px 22px; border-radius: 18px; }
+  .da-login-title { font-size: 24px; }
+}
+@media (max-width: 480px) {
+  .da-login-wrap { grid-template-rows: 32vh 1fr; }
+  .da-login-quote { font-size: 12.5px; }
+  .da-login-hero__img { background-position: center 20%; }
+}
 
 /* ============================================
    Inscrições — tabela, filtros, status, modal
