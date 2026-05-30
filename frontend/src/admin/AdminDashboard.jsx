@@ -366,33 +366,22 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="da-card" data-testid="locations-card">
+        <div className="da-card" data-testid="realtime-card">
           <div className="da-card-head">
             <div>
-              <h2 className="da-card-title">Top localizações</h2>
-              <p className="da-card-sub">De onde vêm os visitantes</p>
+              <h2 className="da-card-title">Atividade em tempo real</h2>
+              <p className="da-card-sub">Últimos eventos no portal</p>
             </div>
+            <span className="da-live"><span className="da-live-dot" /> AO VIVO</span>
           </div>
-          <div className="da-locs">
-            {locs.items.length === 0 && <div className="da-empty">Sem dados ainda.</div>}
-            {locs.items.map((l, i) => (
-              <div className="da-loc-row" key={i} data-testid={`loc-${i}`}>
-                <MapPin size={14} className="da-loc-pin" />
-                <div className="da-loc-name">
-                  <div className="da-loc-city">{l.city}</div>
-                  <div className="da-loc-region">{l.region}</div>
-                </div>
-                <div className="da-loc-bar">
-                  <div className="da-loc-fill" style={{ width: (l.count / maxLoc) * 100 + "%" }} />
-                </div>
-                <div className="da-loc-count">{l.count}</div>
-              </div>
-            ))}
+          <div className="da-events">
+            {events.items.length === 0 && <div className="da-empty">Nenhum evento ainda.</div>}
+            {events.items.map((ev) => <EventRow key={ev.id} ev={ev} />)}
           </div>
         </div>
       </section>
 
-      {/* 7d chart + Realtime */}
+      {/* 7d chart + Top localizações */}
       <section className="da-grid-2">
         <div className="da-card" data-testid="activity-card">
           <div className="da-card-head">
@@ -426,17 +415,28 @@ export default function AdminDashboard() {
           </ResponsiveContainer>
         </div>
 
-        <div className="da-card" data-testid="realtime-card">
+        <div className="da-card" data-testid="locations-card">
           <div className="da-card-head">
             <div>
-              <h2 className="da-card-title">Atividade em tempo real</h2>
-              <p className="da-card-sub">Últimos eventos no portal</p>
+              <h2 className="da-card-title">Top localizações</h2>
+              <p className="da-card-sub">De onde vêm os visitantes</p>
             </div>
-            <span className="da-live"><span className="da-live-dot" /> AO VIVO</span>
           </div>
-          <div className="da-events">
-            {events.items.length === 0 && <div className="da-empty">Nenhum evento ainda.</div>}
-            {events.items.map((ev) => <EventRow key={ev.id} ev={ev} />)}
+          <div className="da-locs">
+            {locs.items.length === 0 && <div className="da-empty">Sem dados ainda.</div>}
+            {locs.items.map((l, i) => (
+              <div className="da-loc-row" key={i} data-testid={`loc-${i}`}>
+                <MapPin size={14} className="da-loc-pin" />
+                <div className="da-loc-name">
+                  <div className="da-loc-city">{l.city}</div>
+                  <div className="da-loc-region">{l.region}</div>
+                </div>
+                <div className="da-loc-bar">
+                  <div className="da-loc-fill" style={{ width: (l.count / maxLoc) * 100 + "%" }} />
+                </div>
+                <div className="da-loc-count">{l.count}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
