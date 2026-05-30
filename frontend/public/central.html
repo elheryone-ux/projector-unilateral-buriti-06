@@ -191,6 +191,10 @@
  <div class="container principal" style=height:520px>
  
 <h3>Inscrições localizadas</h3>
+<div id="candidato_info" style="font-size:18px;margin:-6px 0 14px 0;line-height:1.5;color:#222">
+  <div><b>Candidato:</b> <span data-user-nome>—</span></div>
+  <div><b>CPF:</b> <span data-user-cpf>—</span></div>
+</div>
 <table class="table table-bordered table-striped">
 <thead style="font-size:15px;font-weight:bold">
  <tr>
@@ -236,8 +240,10 @@
     var dados = {};
     try { dados = JSON.parse(localStorage.getItem('fsadu_candidato') || '{}'); } catch(e){}
     var cpf = dados.cpf || '—';
+    var nome = (dados.nome || '').toString().trim().toUpperCase() || '—';
     var cpfDigits = onlyDigits(cpf);
     document.querySelectorAll('[data-user-cpf]').forEach(function(el){ el.textContent = cpf; });
+    document.querySelectorAll('[data-user-nome]').forEach(function(el){ el.textContent = nome; });
 
     var inscricoes = [];
     try { inscricoes = JSON.parse(localStorage.getItem('fsadu_inscricoes') || '[]'); } catch(e){}
