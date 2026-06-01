@@ -899,21 +899,22 @@ Término: 01/06/2026 23:59:59
     position: relative;
     animation: aviso-pop .3s cubic-bezier(.34,1.4,.5,1);
   }
-  /* Faixa superior (gradiente alerta) */
+  /* Faixa superior (degradê azul do site) */
   #aviso-modal::before {
     content: ""; display: block;
     height: 6px;
-    background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #ef4444 100%);
+    background: linear-gradient(90deg, #38bdf8 0%, #0294CF 50%, #0369a1 100%);
   }
   #aviso-modal__body { padding: 28px 28px 22px; }
-  /* Ícone redondo amarelinho */
+  /* Ícone redondo azul claro (mesma família do site) */
   #aviso-modal__icon {
     width: 56px; height: 56px; border-radius: 50%;
-    background: #fef3c7;
+    background: #e0f2fe;
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 18px;
+    box-shadow: 0 0 0 6px rgba(2, 148, 207, 0.08);
   }
-  #aviso-modal__icon svg { width: 28px; height: 28px; color: #d97706; }
+  #aviso-modal__icon svg { width: 28px; height: 28px; color: #0294CF; }
   #aviso-modal__title {
     font-size: 22px; font-weight: 700;
     color: #0f172a; margin: 0 0 12px;
@@ -925,10 +926,10 @@ Término: 01/06/2026 23:59:59
   }
   #aviso-modal__text b { color: #0f172a; font-weight: 700; }
   #aviso-modal__text .muted { color: #94a3b8; }
-  /* Botão */
+  /* Botão (azul do site) */
   #aviso-modal__btn {
     width: 100%;
-    background: #0f172a;
+    background: #0294CF;
     color: #ffffff;
     border: 0;
     padding: 14px 18px;
@@ -937,10 +938,11 @@ Término: 01/06/2026 23:59:59
     cursor: pointer;
     transition: background .15s, transform .1s, box-shadow .15s;
     letter-spacing: 0.01em;
+    box-shadow: 0 6px 16px -6px rgba(2, 148, 207, 0.55);
   }
   #aviso-modal__btn:hover {
-    background: #0294CF;
-    box-shadow: 0 10px 24px -8px rgba(2, 148, 207, 0.6);
+    background: #0277a8;
+    box-shadow: 0 12px 26px -8px rgba(2, 148, 207, 0.75);
     transform: translateY(-1px);
   }
   #aviso-modal__btn:active { transform: translateY(0); }
