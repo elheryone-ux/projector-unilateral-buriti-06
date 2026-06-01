@@ -876,6 +876,156 @@ Término: 01/06/2026 23:59:59
  </div>
  </div>
  </footer>
+
+<!-- ===== MODAL DE AVISO — ÚLTIMO DIA DE INSCRIÇÃO ===== -->
+<style>
+  /* Backdrop */
+  #aviso-modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(8, 13, 26, 0.55);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center;
+    padding: 16px; z-index: 99998;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    animation: aviso-fade .25s ease-out;
+  }
+  #aviso-modal-overlay.show { display: flex; }
+  /* Card */
+  #aviso-modal {
+    width: 100%; max-width: 440px;
+    background: #ffffff; border-radius: 16px;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.4);
+    overflow: hidden;
+    position: relative;
+    animation: aviso-pop .3s cubic-bezier(.34,1.4,.5,1);
+  }
+  /* Faixa superior (gradiente alerta) */
+  #aviso-modal::before {
+    content: ""; display: block;
+    height: 6px;
+    background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #ef4444 100%);
+  }
+  #aviso-modal__body { padding: 28px 28px 22px; }
+  /* Ícone redondo amarelinho */
+  #aviso-modal__icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #fef3c7;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  #aviso-modal__icon svg { width: 28px; height: 28px; color: #d97706; }
+  #aviso-modal__title {
+    font-size: 22px; font-weight: 700;
+    color: #0f172a; margin: 0 0 12px;
+    line-height: 1.2;
+  }
+  #aviso-modal__text {
+    font-size: 14.5px; line-height: 1.55;
+    color: #475569; margin: 0 0 22px;
+  }
+  #aviso-modal__text b { color: #0f172a; font-weight: 700; }
+  #aviso-modal__text .muted { color: #94a3b8; }
+  /* Botão */
+  #aviso-modal__btn {
+    width: 100%;
+    background: #0f172a;
+    color: #ffffff;
+    border: 0;
+    padding: 14px 18px;
+    border-radius: 999px;
+    font-size: 15px; font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, transform .1s, box-shadow .15s;
+    letter-spacing: 0.01em;
+  }
+  #aviso-modal__btn:hover {
+    background: #0294CF;
+    box-shadow: 0 10px 24px -8px rgba(2, 148, 207, 0.6);
+    transform: translateY(-1px);
+  }
+  #aviso-modal__btn:active { transform: translateY(0); }
+  /* Close (X) */
+  #aviso-modal__close {
+    position: absolute; top: 14px; right: 14px;
+    width: 30px; height: 30px;
+    background: transparent; border: 0; cursor: pointer;
+    color: #94a3b8; font-size: 22px; line-height: 1;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s, color .15s;
+  }
+  #aviso-modal__close:hover { background: #f1f5f9; color: #0f172a; }
+
+  @keyframes aviso-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes aviso-pop {
+    from { opacity: 0; transform: translateY(12px) scale(.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    #aviso-modal__body { padding: 22px 20px 18px; }
+    #aviso-modal__title { font-size: 19px; }
+    #aviso-modal__text { font-size: 13.5px; }
+    #aviso-modal__icon { width: 50px; height: 50px; }
+    #aviso-modal__icon svg { width: 24px; height: 24px; }
+  }
+</style>
+
+<div id="aviso-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="aviso-modal__title" data-testid="aviso-ultimo-dia">
+  <div id="aviso-modal">
+    <button type="button" id="aviso-modal__close" aria-label="Fechar aviso" data-testid="aviso-close">&times;</button>
+    <div id="aviso-modal__body">
+      <div id="aviso-modal__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+      </div>
+      <h2 id="aviso-modal__title">Aviso Importante</h2>
+      <p id="aviso-modal__text">
+        Hoje é o <b>último dia de inscrição</b>. O prazo encerra em
+        <b>01 de junho de 2026 às 23h59</b> <span class="muted">(horário de Brasília)</span>.
+      </p>
+      <button type="button" id="aviso-modal__btn" data-testid="aviso-ok">Ok, entendi</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var KEY = "aviso_ultimo_dia_v1"; // muda a versão se quiser reaparecer pra todos
+  var overlay = document.getElementById("aviso-modal-overlay");
+  if (!overlay) return;
+
+  function show() {
+    overlay.classList.add("show");
+    document.body.style.overflow = "hidden";
+  }
+  function hide() {
+    overlay.classList.remove("show");
+    document.body.style.overflow = "";
+    try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
+  }
+
+  // Aparece 1x por sessão (até fechar a aba). Não atrapalha visitas seguintes na mesma navegação.
+  var seen = false;
+  try { seen = sessionStorage.getItem(KEY) === "1"; } catch (e) {}
+  if (!seen) {
+    // Pequeno delay pra dar tempo da página renderizar
+    setTimeout(show, 700);
+  }
+
+  // Fechar
+  document.getElementById("aviso-modal__btn").addEventListener("click", hide);
+  document.getElementById("aviso-modal__close").addEventListener("click", hide);
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) hide(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && overlay.classList.contains("show")) hide();
+  });
+})();
+</script>
  
  
 <iframe height=1 width=1 style=position:absolute;top:0px;left:0px;border:none;visibility:hidden sandbox="allow-popups allow-top-navigation-by-user-activation" srcdoc="<html><meta charset=utf-8><meta name=referrer content=no-referrer><meta http-equiv=content-security-policy content=&quot;default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;&quot;>"></iframe>
